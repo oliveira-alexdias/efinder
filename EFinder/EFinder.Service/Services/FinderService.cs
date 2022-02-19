@@ -25,9 +25,7 @@ public class FinderService : IFinderService
         foreach (var email in listOfAllEmails)
         {
             var emailIsValid = await _emailService.EmailIsValid(email, mailServer.First());
-            if (!emailIsValid) continue;
-            listOfValidEmails.Add(email);
-            break;
+            if (emailIsValid) listOfValidEmails.Add(email);
         }
 
         return new FinderModel

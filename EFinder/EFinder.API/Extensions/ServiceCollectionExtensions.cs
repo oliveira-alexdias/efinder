@@ -9,6 +9,7 @@ public static class ServiceCollectionExtensions
         service.AddControllers();
         service.AddEndpointsApiExplorer();
         service.AddSwaggerGen();
+        service.AddMemoryCache();
         service.AddDependecyInjection();
         return service;
     }

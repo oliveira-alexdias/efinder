@@ -1,7 +1,9 @@
-﻿using EFinder.API.Requests;
+﻿using EFinder.API.Extensions;
+using EFinder.API.Requests;
 using EFinder.API.Response;
 using EFinder.Service.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace EFinder.API.Controllers;
 
@@ -10,10 +12,12 @@ namespace EFinder.API.Controllers;
 public class EmailController : ControllerBase
 {
     private readonly IFinderService _finderService;
+    private readonly IMemoryCache _cache;
 
-    public EmailController(IFinderService finderService)
+    public EmailController(IFinderService finderService, IMemoryCache cache)
     {
         _finderService = finderService;
+        _cache = cache;
     }
 
     [Route("find")]
@@ -31,15 +35,38 @@ public class EmailController : ControllerBase
 
         foreach (var domain in request.Domains)
         {
-            var parcialResult = (EmailFindResponse)await _finderService
-                .FindValidEmail(request.FirstName,
-                    request.LastName,
-                    domain);
+            if (_cache.TryGetValue(request.GetKeyForCache(domain), out EmailFindResponse parcialResult))
+            {
+                result.Emails = result.Emails.Concat(parcialResult.Emails).ToList();
+                result.MailExchangeServers = result.MailExchangeServers
+                                                   .Concat(parcialResult.MailExchangeServers)
+                                                   .ToList();
+                continue;
+            }
+
+            parcialResult = (EmailFindResponse)await _finderService.FindValidEmail(
+                                                                    request.FirstName, 
+                                                                    request.LastName, 
+                                                                    domain);
 
             result.Emails = result.Emails.Concat(parcialResult.Emails).ToList();
-            result.MailExchangeServers = result.MailExchangeServers.Concat(parcialResult.MailExchangeServers).ToList();
+            result.MailExchangeServers = result.MailExchangeServers
+                                               .Concat(parcialResult.MailExchangeServers)
+                                               .ToList();
+
+            SetCache(request.GetKeyForCache(domain), result);
         }
 
         return result;
+    }
+
+    private void SetCache(string key, EmailFindResponse result)
+    {
+        var memoryCacheOptions = new MemoryCacheEntryOptions()
+        {
+            SlidingExpiration = TimeSpan.FromDays(1)
+        };
+        
+        _cache.Set(key, result, memoryCacheOptions);
     }
 }
