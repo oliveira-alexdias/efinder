@@ -21,7 +21,7 @@ namespace EFinder.Test
         public async Task FindValidEmail_Should_Find_One_Valid_Email(string firstName, string lastName, string domain, string expected)
         {
             // Arrange
-            var mockMx = new Mock<IMxService>();
+            var mockMx = new Mock<IMailExchangeService>();
             var mockEmail = new Mock<IEmailService>();
             var finderServiceMocked = new FinderService(mockEmail.Object, mockMx.Object);
 
@@ -47,7 +47,7 @@ namespace EFinder.Test
         public async Task FindValidEmail_Should_Not_Find_One_Valid_Email(string firstName, string lastName, string domain, string expected)
         {
             // Arrange
-            var mockMx = new Mock<IMxService>();
+            var mockMx = new Mock<IMailExchangeService>();
             var mockEmail = new Mock<IEmailService>();
             var finderServiceMocked = new FinderService(mockEmail.Object, mockMx.Object);
 

@@ -11,7 +11,7 @@ public static class DependencyInjectionExtensions
     {
         service.AddScoped<IEmailService, EmailService>();
         service.AddScoped<IFinderService, FinderService>();
-        service.AddScoped<IMxService, MxService>();
+        service.AddScoped<IMailExchangeService, MailExchangeService>();
         service.AddScoped<ITcpClientHelper, TcpClientHelper>();
         return service;
     }

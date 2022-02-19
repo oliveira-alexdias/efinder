@@ -31,7 +31,7 @@ public class TcpClientHelper : ITcpClientHelper, IDisposable
 
     private async Task ConnectToServer(string server)
     {
-        _tcpClient = new TcpClient(server, 25);
+        _tcpClient = new TcpClient(server, Constants.Constants.MailExchangeServerPort);
         _netWorkStream = _tcpClient.GetStream();
         _streamReader = new StreamReader(_netWorkStream);
         await _streamReader.ReadLineAsync();

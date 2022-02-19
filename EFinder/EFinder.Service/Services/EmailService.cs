@@ -14,6 +14,6 @@ public class EmailService : IEmailService
     public async Task<bool> EmailIsValid(string email, string mailServer)
     {
         var response = await _tcpClient.RunEmailCheckCommands(mailServer, email);
-        return response.Status != 550;
+        return response.Status != Constants.Constants.EmailNotFoundStatusCode;
     }
 }

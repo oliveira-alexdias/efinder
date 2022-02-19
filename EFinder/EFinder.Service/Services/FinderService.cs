@@ -7,12 +7,12 @@ namespace EFinder.Service.Services;
 public class FinderService : IFinderService
 {
     private readonly IEmailService _emailService;
-    private readonly IMxService _mxService;
+    private readonly IMailExchangeService _mailExchangeService;
 
-    public FinderService(IEmailService emailService, IMxService mxService)
+    public FinderService(IEmailService emailService, IMailExchangeService mailExchangeService)
     {
         _emailService = emailService;
-        _mxService = mxService;
+        _mailExchangeService = mailExchangeService;
     }
 
     public async Task<FinderModel> FindValidEmail(string firstName, string lastName, string domain)
@@ -20,7 +20,7 @@ public class FinderService : IFinderService
         var listOfValidEmails = new List<string>();
         var listOfAllEmails = EmailListFactory.Create(firstName, lastName, domain);
 
-        var mailServer = _mxService.GetMailExchangeServerBasedOnDomain(domain);
+        var mailServer = _mailExchangeService.GetMailExchangeServerBasedOnDomain(domain);
 
         foreach (var email in listOfAllEmails)
         {

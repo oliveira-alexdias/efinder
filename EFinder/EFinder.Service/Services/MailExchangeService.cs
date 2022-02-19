@@ -4,7 +4,7 @@ using EFinder.Service.Interfaces;
 
 namespace EFinder.Service.Services;
 
-public class MxService : IMxService
+public class MailExchangeService : IMailExchangeService
 {
     public List<string> GetMailExchangeServerBasedOnDomain(string domain)
     {

@@ -10,7 +10,7 @@ public class TcpClientHelperResponse
 
     public TcpClientHelperResponse(string fullMessage)
     {
-        Status = int.Parse(fullMessage.Substring(0, 3));
+        Status = int.Parse(fullMessage[..3]);
         Message = fullMessage;
     }
 

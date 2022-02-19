@@ -1,6 +1,6 @@
 ﻿namespace EFinder.Service.Interfaces;
 
-public interface IMxService
+public interface IMailExchangeService
 {
     List<string> GetMailExchangeServerBasedOnDomain(string domain);
 }
