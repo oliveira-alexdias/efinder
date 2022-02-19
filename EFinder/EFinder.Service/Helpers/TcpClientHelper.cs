@@ -2,6 +2,7 @@
 using System.Text;
 using EFinder.Service.Interfaces;
 using EFinder.Service.Models;
+using Microsoft.Extensions.Configuration;
 
 namespace EFinder.Service.Helpers;
 
@@ -10,6 +11,12 @@ public class TcpClientHelper : ITcpClientHelper, IDisposable
     private NetworkStream _netWorkStream;
     private StreamReader _streamReader;
     private TcpClient _tcpClient;
+    private readonly IConfiguration _configuration;
+
+    public TcpClientHelper(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
 
     public async Task<TcpClientHelperResponse> RunEmailCheckCommands(string server, string email)
     {
@@ -37,7 +44,7 @@ public class TcpClientHelper : ITcpClientHelper, IDisposable
 
     private async Task<TcpClientHelperResponse> RunMailFromCommand()
     {
-        return await RunCommand("MAIL FROM:<oliveira.alexdias@gmail.com>");
+        return await RunCommand($"MAIL FROM:<{_configuration["EmailInfo:From"]}>");
     }
 
     private async Task<TcpClientHelperResponse> RunRcptToCommand(string email)
