@@ -6,11 +6,11 @@ namespace EFinder.Service.Services;
 
 public class MxService : IMxService
 {
-    public string GetMailServerBasedOnDomain(string domain)
+    public List<string> GetMailExchangeServerBasedOnDomain(string domain)
     {
         var resolver = new DnsStubResolver();
-        var firstServer = resolver.Resolve<MxRecord>(domain, RecordType.Mx).FirstOrDefault();
-        if (firstServer is null) throw new MailServerNotFoundException(domain);
-        return firstServer.ExchangeDomainName.ToString();
+        var mxServers = resolver.Resolve<MxRecord>(domain, RecordType.Mx).Select(r => r.ExchangeDomainName.ToString()).ToList();
+        if (!mxServers.Any()) throw new MailExchangeServerNotFoundException(domain);
+        return mxServers;
     }
 }

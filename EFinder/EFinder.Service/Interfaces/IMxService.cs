@@ -2,5 +2,5 @@
 
 public interface IMxService
 {
-    string GetMailServerBasedOnDomain(string domain);
+    List<string> GetMailExchangeServerBasedOnDomain(string domain);
 }

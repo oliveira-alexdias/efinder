@@ -1,4 +1,6 @@
-﻿namespace EFinder.API.Extensions;
+﻿using EFinder.Infra.IoC.DI;
+
+namespace EFinder.API.Extensions;
 
 public static class ServiceCollectionExtensions
 {
@@ -7,6 +9,7 @@ public static class ServiceCollectionExtensions
         service.AddControllers();
         service.AddEndpointsApiExplorer();
         service.AddSwaggerGen();
+        service.AddDependecyInjection();
         return service;
     }
 }

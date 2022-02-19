@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using EFinder.Service.Interfaces;
@@ -24,17 +25,17 @@ namespace EFinder.Test
             var mockEmail = new Mock<IEmailService>();
             var finderServiceMocked = new FinderService(mockEmail.Object, mockMx.Object);
 
-            mockMx.Setup(x => x.GetMailServerBasedOnDomain(It.IsAny<string>())).Returns(string.Empty);
+            mockMx.Setup(x => x.GetMailExchangeServerBasedOnDomain(It.IsAny<string>())).Returns(new List<string> { string.Empty });
             mockEmail.Setup(x => x.EmailIsValid(
                                 It.Is<string>(a => a.Equals(expected, StringComparison.CurrentCultureIgnoreCase)),
                                 It.IsAny<string>()))
                                 .ReturnsAsync(true);
-            
+
             // Act
             var actual = await finderServiceMocked.FindValidEmail(firstName, lastName, domain);
 
             // Assert
-            Assert.Equal(expected, actual.FirstOrDefault(), ignoreCase: true);
+            Assert.Equal(expected, actual.Emails?.FirstOrDefault(), ignoreCase: true);
         }
 
         [Theory]
@@ -50,14 +51,14 @@ namespace EFinder.Test
             var mockEmail = new Mock<IEmailService>();
             var finderServiceMocked = new FinderService(mockEmail.Object, mockMx.Object);
 
-            mockMx.Setup(x => x.GetMailServerBasedOnDomain(It.IsAny<string>())).Returns(string.Empty);
+            mockMx.Setup(x => x.GetMailExchangeServerBasedOnDomain(It.IsAny<string>())).Returns(new List<string> { string.Empty });
             mockEmail.Setup(x => x.EmailIsValid(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(false);
 
             // Act
             var actual = await finderServiceMocked.FindValidEmail(firstName, lastName, domain);
 
             // Assert
-            Assert.Equal(expected, actual.FirstOrDefault());
+            Assert.Equal(expected, actual.Emails?.FirstOrDefault());
         }
     }
 }

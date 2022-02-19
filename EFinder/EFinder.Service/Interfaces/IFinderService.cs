@@ -1,6 +1,8 @@
-﻿namespace EFinder.Service.Interfaces;
+﻿using EFinder.Service.Models;
+
+namespace EFinder.Service.Interfaces;
 
 public interface IFinderService
 {
-    Task<List<string>> FindValidEmail(string firstName, string lastName, string domain);
+    Task<FinderModel> FindValidEmail(string firstName, string lastName, string domain);
 }
