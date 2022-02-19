@@ -12,24 +12,24 @@ namespace EFinder.Service.Factories
         {
             var listOfEmails = new List<string>
             {
-                $"{firstName}.{lastName}{domain}",
-                $"{firstName}{lastName}{domain}",
-                $"{firstName}-{lastName}{domain}",
-                $"{firstName[0]}.{lastName}{domain}",
-                $"{firstName[0]}{lastName}{domain}",
-                $"{firstName[0]}-{lastName}{domain}",
-                $"{lastName}.{firstName[0]}{domain}",
-                $"{lastName}{firstName[0]}{domain}",
-                $"{lastName}-{firstName[0]}{domain}",
-                $"{firstName}.{lastName[0]}{domain}",
-                $"{firstName}{lastName[0]}{domain}",
-                $"{firstName}-{lastName[0]}{domain}",
-                $"{lastName}.{firstName}{domain}",
-                $"{lastName}{firstName}{domain}",
-                $"{lastName}-{firstName}{domain}",
-                $"{lastName[0]}.{firstName}{domain}",
-                $"{lastName[0]}{firstName}{domain}",
-                $"{lastName[0]}-{firstName}{domain}"
+                $"{firstName}.{lastName}@{domain}",
+                $"{firstName}{lastName}@{domain}",
+                $"{firstName}-{lastName}@{domain}",
+                $"{firstName[0]}.{lastName}@{domain}",
+                $"{firstName[0]}{lastName}@{domain}",
+                $"{firstName[0]}-{lastName}@{domain}",
+                $"{lastName}.{firstName[0]}@{domain}",
+                $"{lastName}{firstName[0]}@{domain}",
+                $"{lastName}-{firstName[0]}@{domain}",
+                $"{firstName}.{lastName[0]}@{domain}",
+                $"{firstName}{lastName[0]}@{domain}",
+                $"{firstName}-{lastName[0]}@{domain}",
+                $"{lastName}.{firstName}@{domain}",
+                $"{lastName}{firstName}@{domain}",
+                $"{lastName}-{firstName}@{domain}",
+                $"{lastName[0]}.{firstName}@{domain}",
+                $"{lastName[0]}{firstName}@{domain}",
+                $"{lastName[0]}-{firstName}@{domain}"
             };
 
             return listOfEmails;

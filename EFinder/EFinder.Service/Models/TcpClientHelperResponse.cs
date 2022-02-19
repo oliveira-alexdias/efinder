@@ -2,6 +2,12 @@
 
 public class TcpClientHelperResponse
 {
+    public TcpClientHelperResponse(int status, string message)
+    {
+        Status = status;
+        Message = message;
+    }
+
     public TcpClientHelperResponse(string fullMessage)
     {
         Status = int.Parse(fullMessage.Substring(0, 3));

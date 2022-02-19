@@ -1,0 +1,54 @@
+using System.Threading.Tasks;
+using EFinder.Service.Interfaces;
+using EFinder.Service.Models;
+using EFinder.Service.Services;
+using Moq;
+using Xunit;
+
+namespace EFinder.Test
+{
+    public class EmailService_EmailValidation_Test
+    {
+        [Theory]
+        [InlineData("htraverso@stackoverflow.com", "alt3.aspmx.l.google.com")]
+        [InlineData("DCook@stackoverflow.com", "alt3.aspmx.l.google.com")]
+        [InlineData("aroberts@stackoverflow.com", "alt3.aspmx.l.google.com")]
+        [InlineData("dhaney@stackoverflow.com", "alt3.aspmx.l.google.com")]
+        [InlineData("mforee@stackoverflow.com", "alt3.aspmx.l.google.com")]
+        public async Task EmailIsValid_Should_Be_True(string email, string mailServer)
+        {
+            // Arrange
+            var mock = new Mock<ITcpClientHelper>();
+            var emailServiceMocked = new EmailService(mock.Object);
+            var tcpResponse = new TcpClientHelperResponse(250, string.Empty);
+            mock.Setup(x => x.RunEmailCheckCommands(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(tcpResponse);
+           
+            // Act
+            var actual = await emailServiceMocked.EmailIsValid(email, mailServer);
+
+            // Assert
+            Assert.True(actual);
+        }
+
+        [Theory]
+        [InlineData("__111___aabbcc@stackoverflow.com", "alt3.aspmx.l.google.com")] 
+        [InlineData("__222___aabbcc@stackoverflow.com", "alt3.aspmx.l.google.com")] 
+        [InlineData("__333___aabbcc@stackoverflow.com", "alt3.aspmx.l.google.com")] 
+        [InlineData("__444___aabbcc@stackoverflow.com", "alt3.aspmx.l.google.com")] 
+        [InlineData("__555___aabbcc@stackoverflow.com", "alt3.aspmx.l.google.com")] 
+        public async Task EmailIsValid_Should_Be_False(string email, string mailServer)
+        {
+            // Arrange
+            var mock = new Mock<ITcpClientHelper>();
+            var emailServiceMocked = new EmailService(mock.Object);
+            var tcpResponse = new TcpClientHelperResponse(550, string.Empty);
+            mock.Setup(x => x.RunEmailCheckCommands(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(tcpResponse);
+
+            // Act
+            var actual = await emailServiceMocked.EmailIsValid(email, mailServer);
+
+            // Assert
+            Assert.False(actual);
+        }
+    }
+}
