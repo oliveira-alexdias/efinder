@@ -4,5 +4,5 @@ namespace EFinder.Service.Interfaces;
 
 public interface ITcpClientHelper
 {
-    Task<TcpClientHelperResponse> RunEmailCheckCommands(string server, string message);
+    Task<TcpClientHelperResponse> RunEmailCheckCommands(string server, string email);
 }

@@ -7,9 +7,9 @@ namespace EFinder.Service.Helpers;
 
 public class TcpClientHelper : ITcpClientHelper, IDisposable
 {
-    private NetworkStream netWorkStream;
-    private StreamReader streamReader;
-    private TcpClient tcpClient;
+    private NetworkStream _netWorkStream;
+    private StreamReader _streamReader;
+    private TcpClient _tcpClient;
 
     public async Task<TcpClientHelperResponse> RunEmailCheckCommands(string server, string email)
     {
@@ -24,10 +24,10 @@ public class TcpClientHelper : ITcpClientHelper, IDisposable
 
     private async Task ConnectToServer(string server)
     {
-        tcpClient = new TcpClient(server, 25);
-        netWorkStream = tcpClient.GetStream();
-        streamReader = new StreamReader(netWorkStream);
-        await streamReader.ReadLineAsync();
+        _tcpClient = new TcpClient(server, 25);
+        _netWorkStream = _tcpClient.GetStream();
+        _streamReader = new StreamReader(_netWorkStream);
+        await _streamReader.ReadLineAsync();
     }
 
     private async Task<TcpClientHelperResponse> RunHeloCommand()
@@ -54,20 +54,30 @@ public class TcpClientHelper : ITcpClientHelper, IDisposable
     {
         var CRLF = "\r\n";
         var buffer = Encoding.ASCII.GetBytes(command + CRLF);
-        await netWorkStream.WriteAsync(buffer, 0, buffer.Length);
-        var response = await streamReader.ReadLineAsync();
+        await _netWorkStream.WriteAsync(buffer, 0, buffer.Length);
+        var response = await _streamReader.ReadLineAsync();
         return new TcpClientHelperResponse(response);
     }
 
     private void DisconnectFromServer()
     {
-        tcpClient.Close();
+        _tcpClient.Close();
+    }
+    
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            _netWorkStream?.Dispose();
+            _streamReader?.Dispose();
+            _tcpClient?.Dispose();
+        }
     }
 
     public void Dispose()
     {
-        netWorkStream.Dispose();
-        streamReader.Dispose();
-        tcpClient.Dispose();
+        Dispose(true);
+        GC.SuppressFinalize(this);
     }
 }
