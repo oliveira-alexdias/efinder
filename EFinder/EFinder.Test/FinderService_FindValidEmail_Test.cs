@@ -10,7 +10,7 @@ using Xunit;
 
 namespace EFinder.Test
 {
-    public class FinderService_EmailValidation_Test
+    public class FinderService_FindValidEmail_Test
     {
         [Theory]
         [InlineData("Henry", "Traverso", "stackoverflow.com", "htraverso@stackoverflow.com")]

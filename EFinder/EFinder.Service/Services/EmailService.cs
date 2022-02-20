@@ -1,4 +1,5 @@
-﻿using EFinder.Service.Interfaces;
+﻿using EFinder.Service.Extensions;
+using EFinder.Service.Interfaces;
 using Microsoft.Extensions.Configuration;
 
 namespace EFinder.Service.Services;
@@ -6,10 +7,12 @@ namespace EFinder.Service.Services;
 public class EmailService : IEmailService
 {
     private readonly ISmtpService _smtpService;
+    private readonly IFiles _files;
 
-    public EmailService(ISmtpService smtpService)
+    public EmailService(ISmtpService smtpService, IFiles files)
     {
         this._smtpService = smtpService;
+        _files = files;
     }
 
     public async Task<bool> EmailIsValid(string email, string mailServer)
@@ -20,13 +23,10 @@ public class EmailService : IEmailService
 
     public List<string> GetAllPossibleEmails(string firstName, string lastName, string domain)
     {
-        var path = Path.Combine(Directory.GetCurrentDirectory(), Constants.Constants.EmailAddressPatterns);
-        var patternsAvailable = File.ReadAllLines(path).ToList();
-        var emails = patternsAvailable.Select(s => s.Replace("{domain}", domain)
-                                                    .Replace("{FN}", firstName)
-                                                    .Replace("{FI}", firstName[0].ToString())
-                                                    .Replace("{LN}", lastName)
-                                                    .Replace("{LI}", lastName[0].ToString())).ToList();
+        var basePath = Directory.GetParent(Directory.GetCurrentDirectory())?.FullName;
+        var fullPath = Path.Combine(basePath, Constants.Constants.ResourceFolder, Constants.Constants.EmailAddressPatterns);
+        var patternsAvailable = _files.ReadFileAsStringList(fullPath);
+        var emails = patternsAvailable.Select(s => s.ReplaceForEmail(firstName, lastName, domain)).ToList();
         return emails;
     }
 }

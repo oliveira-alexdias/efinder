@@ -15,7 +15,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EFinder.Infra.File\EFinder.Infra.File.csproj" />
     <ProjectReference Include="..\EFinder.Service\EFinder.Service.csproj" />
+    <ProjectReference Include="..\EFinder.Test\EFinder.Test.csproj" />
   </ItemGroup>
 
 </Project>

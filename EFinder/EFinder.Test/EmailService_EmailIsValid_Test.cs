@@ -7,7 +7,7 @@ using Xunit;
 
 namespace EFinder.Test
 {
-    public class EmailService_EmailValidation_Test
+    public class EmailService_EmailIsValid_Test
     {
         [Theory]
         [InlineData("htraverso@stackoverflow.com", "alt3.aspmx.l.google.com")]
@@ -19,9 +19,10 @@ namespace EFinder.Test
         {
             // Arrange
             var mock = new Mock<ISmtpService>();
-            var emailServiceMocked = new EmailService(mock.Object);
+            var mockFile = new Mock<IFiles>();
+            var emailServiceMocked = new EmailService(mock.Object, mockFile.Object);
             var tcpResponse = new SmtpResponse(250, string.Empty);
-            mock.Setup(x => x.RunEmailCheckCommands(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(tcpResponse);
+            mock.Setup(x => x.RunEmailCheckCommands(mailServer, email)).ReturnsAsync(tcpResponse);
 
             // Act
             var actual = await emailServiceMocked.EmailIsValid(email, mailServer);
@@ -40,9 +41,10 @@ namespace EFinder.Test
         {
             // Arrange
             var mock = new Mock<ISmtpService>();
-            var emailServiceMocked = new EmailService(mock.Object);
+            var mockFile = new Mock<IFiles>();
+            var emailServiceMocked = new EmailService(mock.Object, mockFile.Object);
             var tcpResponse = new SmtpResponse(550, string.Empty);
-            mock.Setup(x => x.RunEmailCheckCommands(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(tcpResponse);
+            mock.Setup(x => x.RunEmailCheckCommands(mailServer, email)).ReturnsAsync(tcpResponse);
 
             // Act
             var actual = await emailServiceMocked.EmailIsValid(email, mailServer);

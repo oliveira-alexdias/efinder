@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.0.32112.339
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFinder.API", "EFinder.API\EFinder.API.csproj", "{81335492-80F8-4B0C-8F47-98A95CC31542}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFinder.API", "EFinder.API\EFinder.API.csproj", "{81335492-80F8-4B0C-8F47-98A95CC31542}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 API", "1 API", "{BADC5C75-E7E9-4204-BB9B-8A632B37E055}"
 EndProject
@@ -13,11 +13,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 Infra", "3 Infra", "{B201
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 Test", "4 Test", "{655724AA-7186-456C-87FD-061E42DBAFD9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFinder.Service", "EFinder.Service\EFinder.Service.csproj", "{B76D4F84-E6FE-4E08-BCC3-E4729128C64E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFinder.Service", "EFinder.Service\EFinder.Service.csproj", "{B76D4F84-E6FE-4E08-BCC3-E4729128C64E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFinder.Infra.IoC", "EFinder.Infra.IoC\EFinder.Infra.IoC.csproj", "{C82B9835-2285-45C7-8783-141D25D1A35C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFinder.Infra.IoC", "EFinder.Infra.IoC\EFinder.Infra.IoC.csproj", "{C82B9835-2285-45C7-8783-141D25D1A35C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFinder.Test", "EFinder.Test\EFinder.Test.csproj", "{7561931D-54BA-48B1-890A-79C096C8A7AB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFinder.Test", "EFinder.Test\EFinder.Test.csproj", "{7561931D-54BA-48B1-890A-79C096C8A7AB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EFinder.Infra.File", "EFinder.Infra.File\EFinder.Infra.File.csproj", "{4FFEFB5B-4B1D-4496-A5A4-56D5130EC87C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{7561931D-54BA-48B1-890A-79C096C8A7AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7561931D-54BA-48B1-890A-79C096C8A7AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7561931D-54BA-48B1-890A-79C096C8A7AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4FFEFB5B-4B1D-4496-A5A4-56D5130EC87C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4FFEFB5B-4B1D-4496-A5A4-56D5130EC87C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4FFEFB5B-4B1D-4496-A5A4-56D5130EC87C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4FFEFB5B-4B1D-4496-A5A4-56D5130EC87C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +56,7 @@ Global
 		{B76D4F84-E6FE-4E08-BCC3-E4729128C64E} = {738E842C-4251-4E35-AF57-85097C609470}
 		{C82B9835-2285-45C7-8783-141D25D1A35C} = {B20182A1-9B10-4198-8DFA-D662D96B5065}
 		{7561931D-54BA-48B1-890A-79C096C8A7AB} = {655724AA-7186-456C-87FD-061E42DBAFD9}
+		{4FFEFB5B-4B1D-4496-A5A4-56D5130EC87C} = {B20182A1-9B10-4198-8DFA-D662D96B5065}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AE953588-061F-4349-93A8-13D18A7384E8}
