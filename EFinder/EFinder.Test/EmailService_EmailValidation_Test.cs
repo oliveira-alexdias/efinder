@@ -18,11 +18,11 @@ namespace EFinder.Test
         public async Task EmailIsValid_Should_Be_True(string email, string mailServer)
         {
             // Arrange
-            var mock = new Mock<ITcpClientHelper>();
+            var mock = new Mock<ISmtpService>();
             var emailServiceMocked = new EmailService(mock.Object);
-            var tcpResponse = new TcpClientHelperResponse(250, string.Empty);
+            var tcpResponse = new SmtpResponse(250, string.Empty);
             mock.Setup(x => x.RunEmailCheckCommands(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(tcpResponse);
-           
+
             // Act
             var actual = await emailServiceMocked.EmailIsValid(email, mailServer);
 
@@ -39,9 +39,9 @@ namespace EFinder.Test
         public async Task EmailIsValid_Should_Be_False(string email, string mailServer)
         {
             // Arrange
-            var mock = new Mock<ITcpClientHelper>();
+            var mock = new Mock<ISmtpService>();
             var emailServiceMocked = new EmailService(mock.Object);
-            var tcpResponse = new TcpClientHelperResponse(550, string.Empty);
+            var tcpResponse = new SmtpResponse(550, string.Empty);
             mock.Setup(x => x.RunEmailCheckCommands(It.IsAny<string>(), It.IsAny<string>())).ReturnsAsync(tcpResponse);
 
             // Act

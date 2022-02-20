@@ -1,14 +1,14 @@
 ﻿namespace EFinder.Service.Models;
 
-public class TcpClientHelperResponse
+public class SmtpResponse
 {
-    public TcpClientHelperResponse(int status, string message)
+    public SmtpResponse(int status, string message)
     {
         Status = status;
         Message = message;
     }
 
-    public TcpClientHelperResponse(string fullMessage)
+    public SmtpResponse(string fullMessage)
     {
         Status = int.Parse(fullMessage[..3]);
         Message = fullMessage;

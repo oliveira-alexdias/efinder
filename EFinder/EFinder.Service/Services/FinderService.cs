@@ -1,5 +1,4 @@
-﻿using EFinder.Service.Factories;
-using EFinder.Service.Interfaces;
+﻿using EFinder.Service.Interfaces;
 using EFinder.Service.Models;
 
 namespace EFinder.Service.Services;
@@ -18,8 +17,7 @@ public class FinderService : IFinderService
     public async Task<FinderModel> FindValidEmail(string firstName, string lastName, string domain)
     {
         var listOfValidEmails = new List<string>();
-        var listOfAllEmails = EmailListFactory.Create(firstName, lastName, domain);
-
+        var listOfAllEmails = _emailService.GetAllPossibleEmails(firstName, lastName, domain);
         var mailServer = _mailExchangeService.GetMailExchangeServerBasedOnDomain(domain);
 
         foreach (var email in listOfAllEmails)

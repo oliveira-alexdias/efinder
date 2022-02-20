@@ -1,5 +1,4 @@
-﻿using EFinder.Service.Helpers;
-using EFinder.Service.Interfaces;
+﻿using EFinder.Service.Interfaces;
 using EFinder.Service.Services;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -12,7 +11,7 @@ public static class DependencyInjectionExtensions
         service.AddScoped<IEmailService, EmailService>();
         service.AddScoped<IFinderService, FinderService>();
         service.AddScoped<IMailExchangeService, MailExchangeService>();
-        service.AddScoped<ITcpClientHelper, TcpClientHelper>();
+        service.AddScoped<ISmtpService, SmtpService>();
         return service;
     }
 }

@@ -4,21 +4,21 @@ using EFinder.Service.Interfaces;
 using EFinder.Service.Models;
 using Microsoft.Extensions.Configuration;
 
-namespace EFinder.Service.Helpers;
+namespace EFinder.Service.Services;
 
-public class TcpClientHelper : ITcpClientHelper, IDisposable
+public class SmtpService : ISmtpService, IDisposable
 {
     private NetworkStream _netWorkStream;
     private StreamReader _streamReader;
     private TcpClient _tcpClient;
     private readonly IConfiguration _configuration;
 
-    public TcpClientHelper(IConfiguration configuration)
+    public SmtpService(IConfiguration configuration)
     {
         _configuration = configuration;
     }
 
-    public async Task<TcpClientHelperResponse> RunEmailCheckCommands(string server, string email)
+    public async Task<SmtpResponse> RunEmailCheckCommands(string server, string email)
     {
         await ConnectToServer(server);
         await RunHeloCommand();
@@ -37,17 +37,17 @@ public class TcpClientHelper : ITcpClientHelper, IDisposable
         await _streamReader.ReadLineAsync();
     }
 
-    private async Task<TcpClientHelperResponse> RunHeloCommand()
+    private async Task<SmtpResponse> RunHeloCommand()
     {
         return await RunCommand("HELO EFinder");
     }
 
-    private async Task<TcpClientHelperResponse> RunMailFromCommand()
+    private async Task<SmtpResponse> RunMailFromCommand()
     {
         return await RunCommand($"MAIL FROM:<{_configuration["EmailInfo:From"]}>");
     }
 
-    private async Task<TcpClientHelperResponse> RunRcptToCommand(string email)
+    private async Task<SmtpResponse> RunRcptToCommand(string email)
     {
         return await RunCommand($"RCPT TO:<{email}>");
     }
@@ -57,13 +57,12 @@ public class TcpClientHelper : ITcpClientHelper, IDisposable
         await RunCommand("QUITE");
     }
 
-    private async Task<TcpClientHelperResponse> RunCommand(string command)
+    private async Task<SmtpResponse> RunCommand(string command)
     {
-        var CRLF = "\r\n";
-        var buffer = Encoding.ASCII.GetBytes(command + CRLF);
+        var buffer = Encoding.ASCII.GetBytes(command + Constants.Constants.Crlf);
         await _netWorkStream.WriteAsync(buffer, 0, buffer.Length);
         var response = await _streamReader.ReadLineAsync();
-        return new TcpClientHelperResponse(response);
+        return new SmtpResponse(response);
     }
 
     private void DisconnectFromServer()
@@ -71,7 +70,6 @@ public class TcpClientHelper : ITcpClientHelper, IDisposable
         _tcpClient.Close();
     }
     
-
     protected virtual void Dispose(bool disposing)
     {
         if (disposing)
