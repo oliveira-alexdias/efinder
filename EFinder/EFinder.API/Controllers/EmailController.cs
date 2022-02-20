@@ -24,7 +24,7 @@ public class EmailController : ControllerBase
     [HttpGet]
     public async Task<IActionResult> Get([FromQuery] EmailFindRequest request)
     {
-        if (request.HasErrors()) return BadRequest(request.Errors);
+        if (request.IsInvalid()) return BadRequest(request.Errors);
         var result = await FindValidEmail(request);
         return Ok(result);
     }

@@ -3,7 +3,7 @@
 public abstract class Request
 {
     // This is a Template Method GoF Desing Pattern
-    public bool HasErrors()
+    public bool IsInvalid()
     {
         Validate();
         return Errors.Count > 0;
