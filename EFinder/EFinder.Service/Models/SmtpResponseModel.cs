@@ -1,14 +1,14 @@
 ﻿namespace EFinder.Service.Models;
 
-public class SmtpResponse
+public class SmtpResponseModel
 {
-    public SmtpResponse(int status, string message)
+    public SmtpResponseModel(int status, string message)
     {
         Status = status;
         Message = message;
     }
 
-    public SmtpResponse(string fullMessage)
+    public SmtpResponseModel(string fullMessage)
     {
         Status = int.Parse(fullMessage[..3]);
         Message = fullMessage;

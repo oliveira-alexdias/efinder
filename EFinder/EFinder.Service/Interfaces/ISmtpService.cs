@@ -4,5 +4,5 @@ namespace EFinder.Service.Interfaces;
 
 public interface ISmtpService
 {
-    Task<SmtpResponse> RunEmailCheckCommands(string server, string email);
+    Task<SmtpResponseModel> RunEmailCheckCommands(string server, string email);
 }

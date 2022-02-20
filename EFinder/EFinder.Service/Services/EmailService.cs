@@ -1,6 +1,5 @@
 ﻿using EFinder.Service.Extensions;
 using EFinder.Service.Interfaces;
-using Microsoft.Extensions.Configuration;
 
 namespace EFinder.Service.Services;
 

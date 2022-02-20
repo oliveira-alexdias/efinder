@@ -18,7 +18,7 @@ public class SmtpService : ISmtpService, IDisposable
         _configuration = configuration;
     }
 
-    public async Task<SmtpResponse> RunEmailCheckCommands(string server, string email)
+    public async Task<SmtpResponseModel> RunEmailCheckCommands(string server, string email)
     {
         await ConnectToServer(server);
         await RunHeloCommand();
@@ -37,17 +37,17 @@ public class SmtpService : ISmtpService, IDisposable
         await _streamReader.ReadLineAsync();
     }
 
-    private async Task<SmtpResponse> RunHeloCommand()
+    private async Task<SmtpResponseModel> RunHeloCommand()
     {
         return await RunCommand("HELO EFinder");
     }
 
-    private async Task<SmtpResponse> RunMailFromCommand()
+    private async Task<SmtpResponseModel> RunMailFromCommand()
     {
         return await RunCommand($"MAIL FROM:<{_configuration["EmailInfo:From"]}>");
     }
 
-    private async Task<SmtpResponse> RunRcptToCommand(string email)
+    private async Task<SmtpResponseModel> RunRcptToCommand(string email)
     {
         return await RunCommand($"RCPT TO:<{email}>");
     }
@@ -57,12 +57,12 @@ public class SmtpService : ISmtpService, IDisposable
         await RunCommand("QUITE");
     }
 
-    private async Task<SmtpResponse> RunCommand(string command)
+    private async Task<SmtpResponseModel> RunCommand(string command)
     {
         var buffer = Encoding.ASCII.GetBytes(command + Constants.Constants.Crlf);
         await _netWorkStream.WriteAsync(buffer, 0, buffer.Length);
         var response = await _streamReader.ReadLineAsync();
-        return new SmtpResponse(response);
+        return new SmtpResponseModel(response);
     }
 
     private void DisconnectFromServer()

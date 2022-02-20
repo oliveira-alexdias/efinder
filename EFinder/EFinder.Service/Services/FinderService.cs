@@ -18,18 +18,18 @@ public class FinderService : IFinderService
     {
         var listOfValidEmails = new List<string>();
         var listOfAllEmails = _emailService.GetAllPossibleEmails(firstName, lastName, domain);
-        var mailServer = _mailExchangeService.GetMailExchangeServerBasedOnDomain(domain);
+        var mailServers = _mailExchangeService.GetMailExchangeServerBasedOnDomain(domain);
 
         foreach (var email in listOfAllEmails)
         {
-            var emailIsValid = await _emailService.EmailIsValid(email, mailServer.First());
+            var emailIsValid = await _emailService.EmailIsValid(email, mailServers.First());
             if (emailIsValid) listOfValidEmails.Add(email);
         }
 
         return new FinderModel
         {
             Emails = listOfValidEmails,
-            MailExchangeServers = mailServer
+            MailExchangeServers = mailServers
         };
     }
 }

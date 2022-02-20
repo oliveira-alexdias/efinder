@@ -21,7 +21,7 @@ namespace EFinder.Test
             var mock = new Mock<ISmtpService>();
             var mockFile = new Mock<IFiles>();
             var emailServiceMocked = new EmailService(mock.Object, mockFile.Object);
-            var tcpResponse = new SmtpResponse(250, string.Empty);
+            var tcpResponse = new SmtpResponseModel(250, string.Empty);
             mock.Setup(x => x.RunEmailCheckCommands(mailServer, email)).ReturnsAsync(tcpResponse);
 
             // Act
@@ -43,7 +43,7 @@ namespace EFinder.Test
             var mock = new Mock<ISmtpService>();
             var mockFile = new Mock<IFiles>();
             var emailServiceMocked = new EmailService(mock.Object, mockFile.Object);
-            var tcpResponse = new SmtpResponse(550, string.Empty);
+            var tcpResponse = new SmtpResponseModel(550, string.Empty);
             mock.Setup(x => x.RunEmailCheckCommands(mailServer, email)).ReturnsAsync(tcpResponse);
 
             // Act
