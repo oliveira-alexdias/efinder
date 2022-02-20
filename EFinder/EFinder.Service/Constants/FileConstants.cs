@@ -1,10 +1,7 @@
 ﻿namespace EFinder.Service.Constants;
 
-public static class Constants
+public static class FileConstants
 {
-    public const int MailExchangeServerPort = 25;
-    public const int EmailNotFoundStatusCode = 550;
-    public const string Crlf = "\r\n";
     public const string ResourceFolder = "EFinder.Resource";
     public const string EmailAddressPatterns = "EmailAddressPatterns.txt";
 }

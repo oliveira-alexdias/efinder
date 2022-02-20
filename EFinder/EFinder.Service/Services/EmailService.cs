@@ -17,13 +17,13 @@ public class EmailService : IEmailService
     public async Task<bool> EmailIsValid(string email, string mailServer)
     {
         var response = await _smtpService.RunEmailCheckCommands(mailServer, email);
-        return response.Status != Constants.Constants.EmailNotFoundStatusCode;
+        return response.Status != Constants.SmtpConstants.EmailNotFoundStatusCode;
     }
 
     public List<string> GetAllPossibleEmails(string firstName, string lastName, string domain)
     {
         var basePath = Directory.GetParent(Directory.GetCurrentDirectory())?.FullName;
-        var fullPath = Path.Combine(basePath, Constants.Constants.ResourceFolder, Constants.Constants.EmailAddressPatterns);
+        var fullPath = Path.Combine(basePath, Constants.FileConstants.ResourceFolder, Constants.FileConstants.EmailAddressPatterns);
         var patternsAvailable = _files.ReadFileAsStringList(fullPath);
         var emails = patternsAvailable.Select(s => s.ReplaceForEmail(firstName, lastName, domain)).ToList();
         return emails;

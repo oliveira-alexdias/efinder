@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Constants\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="ARSoft.Tools.Net.Core" Version="2.3.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.0" />
   </ItemGroup>
